@@ -1048,6 +1048,13 @@
       type: string
       example: ~
       default: "30"
+    - name: home_page_title
+        description: |
+          Page title for /home base route
+        version_added: 1.10.11
+        type: string
+        example: "My DAGs"
+        default: "DAGs"
 
 - name: email
   description: |

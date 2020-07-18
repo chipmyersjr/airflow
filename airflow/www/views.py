@@ -223,6 +223,7 @@ class Airflow(AirflowBaseView):  # noqa: D101
                                                       'hide_paused_dags_by_default')
 
         default_dag_run = conf.getint('webserver', 'default_dag_run_display_number')
+        page_title = conf.get(section="webserver", key="home_page_title", fallback="DAGs")
         num_runs = request.args.get('num_runs')
         num_runs = int(num_runs) if num_runs else default_dag_run
 
@@ -356,7 +357,8 @@ class Airflow(AirflowBaseView):  # noqa: D101
             status_filter=arg_status_filter,
             status_count_all=all_dags_count,
             status_count_active=status_count_active,
-            status_count_paused=status_count_paused)
+            status_count_paused=status_count_paused,
+            page_title=page_title)
 
     @expose('/dag_stats', methods=['POST'])
     @has_access

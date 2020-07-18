@@ -573,6 +573,11 @@ class TestAirflowBaseViews(TestBase):
             self.client.get('home?status=all', follow_redirects=True)
             self.assertEqual('all', flask_session[FILTER_STATUS_COOKIE])
 
+    @conf_vars({("webserver", "home_page_title"): "test_title"})
+    def test_home_gets_page_title_from_config(self):
+        resp = self.client.get('home', follow_redirects=True)
+        self.check_content_in_response('test_title', resp)
+
     def test_task(self):
         url = ('task?task_id=runme_0&dag_id=example_bash_operator&execution_date={}'
                .format(self.percent_encode(self.EXAMPLE_DAG_DEFAULT_DATE)))
